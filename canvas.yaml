@@ -1,0 +1,28 @@
+preset: package
+
+namespace: Dealskoo\Adserver
+user-auth-provider: App\User
+
+paths:
+  src: src
+  resource: resources
+
+factory:
+  path: database/factories
+  namespace: Database\Factories\Dealskoo\Adserver\Models
+
+migration:
+  path: database/migrations
+  prefix: ''
+
+console:
+  namespace: Dealskoo\Adserver\Console
+
+model:
+  namespace: Dealskoo\Adserver\Models
+
+provider:
+  namespace: Dealskoo\Adserver\Providers
+
+testing:
+  namespace: Dealskoo\Adserver\Tests
