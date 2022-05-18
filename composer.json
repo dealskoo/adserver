@@ -55,6 +55,7 @@
                 "Dealskoo\\Adserver\\Providers\\AdserverServiceProvider"
             ],
             "aliases": {
+                "Ad": "Dealskoo\\Adserver\\Facades\\Ad"
             }
         }
     },

@@ -5,6 +5,7 @@ namespace Dealskoo\Adserver\Providers;
 use Dealskoo\Admin\Facades\AdminMenu;
 use Dealskoo\Admin\Facades\PermissionManager;
 use Dealskoo\Admin\Permission;
+use Dealskoo\Adserver\Ad;
 use Illuminate\Support\ServiceProvider;
 
 class AdServerServiceProvider extends ServiceProvider
@@ -17,6 +18,7 @@ class AdServerServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(__DIR__ . '/../../config/adserver.php', 'adserver');
+        $this->app->singleton('ad', Ad::class);
     }
 
     /**

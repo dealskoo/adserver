@@ -2,6 +2,7 @@
 
 namespace Dealskoo\Adserver\Tests;
 
+use Dealskoo\Adserver\Facades\Ad;
 use Dealskoo\Adserver\Providers\AdServerServiceProvider;
 
 abstract class TestCase extends \Dealskoo\Admin\Tests\TestCase
@@ -15,6 +16,8 @@ abstract class TestCase extends \Dealskoo\Admin\Tests\TestCase
 
     protected function getPackageAliases($app)
     {
-        return [];
+        return [
+            'Ad' => Ad::class
+        ];
     }
 }
