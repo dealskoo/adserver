@@ -15,7 +15,10 @@ class CreateAdSpacesTable extends Migration
     {
         Schema::create('ad_spaces', function (Blueprint $table) {
             $table->id();
+            $table->string('code')->unique();
+            $table->text('description')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

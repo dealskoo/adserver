@@ -22,7 +22,8 @@ class AdSpaceFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'code' => $this->faker->unique()->slug,
+            'description' => $this->faker->text,
         ];
     }
 }

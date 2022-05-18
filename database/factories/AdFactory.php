@@ -3,6 +3,8 @@
 namespace Database\Factories\Dealskoo\Adserver\Models;
 
 use Dealskoo\Adserver\Models\Ad;
+use Dealskoo\Adserver\Models\AdSpace;
+use Dealskoo\Country\Models\Country;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class AdFactory extends Factory
@@ -22,7 +24,23 @@ class AdFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'title' => $this->faker->title,
+            'banner' => $this->faker->imageUrl,
+            'link' => $this->faker->url,
+            'ad_space_id' => AdSpace::factory()->create(),
+            'country_id' => Country::factory()->create(),
+            'start_at' => $this->faker->dateTime,
+            'end_at' => $this->faker->dateTime
         ];
+    }
+
+    public function avaiabled()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'end_at' => $this->faker->dateTimeBetween('now', '+7 days'),
+                'approved_at' => $this->faker->dateTime,
+            ];
+        });
     }
 }
