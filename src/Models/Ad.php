@@ -2,7 +2,9 @@
 
 namespace Dealskoo\Adserver\Models;
 
+use Carbon\Carbon;
 use Dealskoo\Country\Traits\HasCountry;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
@@ -40,5 +42,11 @@ class Ad extends Model
     public function ad_space()
     {
         return $this->belongsTo(AdSpace::class);
+    }
+
+    public function scopeAvaiabled(Builder $builder)
+    {
+        $now = Carbon::now();
+        return $builder->where('start_at', '<=', $now)->where('end_at', '>=', $now);
     }
 }

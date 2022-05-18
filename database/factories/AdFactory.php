@@ -38,8 +38,8 @@ class AdFactory extends Factory
     {
         return $this->state(function (array $attributes) {
             return [
+                'start_at' => $this->faker->dateTimeBetween('-1 days'),
                 'end_at' => $this->faker->dateTimeBetween('now', '+7 days'),
-                'approved_at' => $this->faker->dateTime,
             ];
         });
     }
