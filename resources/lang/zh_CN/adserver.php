@@ -1,4 +1,30 @@
 <?php
 return [
-
+    'adserver' => '广告管理',
+    'ads' => '广告',
+    'ad' => '广告',
+    'ads_list' => '广告列表',
+    'add_ad' => '添加广告',
+    'edit_ad' => '编辑广告',
+    'view_ad' => '查看广告',
+    'title' => '标题',
+    'title_placeholder' => '标题',
+    'link' => '链接',
+    'link_placeholder' => '链接',
+    'country' => '国家',
+    'start_at' => '开始时间',
+    'end_at' => '结束时间',
+    'ad_spaces' => '广告位',
+    'ad_space' => '广告位',
+    'ad_spaces_list' => '广告位列表',
+    'add_ad_space' => '添加广告位',
+    'edit_ad_space' => '编辑广告位',
+    'view_ad_space' => '查看广告位',
+    'id' => '编号',
+    'code' => '代码',
+    'code_placeholder' => '代码',
+    'description' => '描述',
+    'created_at' => '创建时间',
+    'updated_at' => '更新时间',
+    'action' => '操作'
 ];
