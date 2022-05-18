@@ -106,7 +106,7 @@ class AdSpaceController extends AdminController
     {
         abort_if(!$request->user()->canDo('ad_spaces.edit'), 403);
         $request->validate([
-            'code' => ['required', 'string', 'unique:ad_spaces' . $id . ',id'],
+            'code' => ['required', 'string', 'unique:ad_spaces,code,' . $id . ',id'],
         ]);
 
         $ad_space = AdSpace::query()->findOrFail($id);

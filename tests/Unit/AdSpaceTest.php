@@ -9,8 +9,13 @@ class AdSpaceTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function test_set_code()
+    {
+
+    }
+
     public function test_ads()
     {
-        
+
     }
 }
