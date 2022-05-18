@@ -5,7 +5,10 @@ namespace Dealskoo\Adserver\Http\Controllers\Admin;
 use Carbon\Carbon;
 use Dealskoo\Admin\Http\Controllers\Controller as AdminController;
 use Dealskoo\Adserver\Models\Ad;
+use Dealskoo\Adserver\Models\AdSpace;
+use Dealskoo\Country\Models\Country;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 class AdController extends AdminController
 {
@@ -82,18 +85,31 @@ class AdController extends AdminController
     public function create(Request $request)
     {
         abort_if(!$request->user()->canDo('ads.create'), 403);
-        return view('adserver::admin.ad.create');
+        $countries = Country::all();
+        $ad_spaces = AdSpace::all();
+        return view('adserver::admin.ad.create', ['countries' => $countries, 'ad_spaces' => $ad_spaces]);
     }
 
     public function store(Request $request)
     {
         abort_if(!$request->user()->canDo('ads.create'), 403);
         $request->validate([
-
+            'title' => ['required', 'string'],
+            'link' => ['required', 'url'],
+            'country_id' => ['required', 'exists:countries,id'],
+            'ad_space_id' => ['required', 'exists:ad_spaces,id'],
+            'banner' => ['required', 'image', 'max:1000'],
+            'activity_date' => ['required', 'string']
         ]);
-        $ad = new Ad($request->only([
-
-        ]));
+        $between = explode(' - ', $request->input('activity_date'));
+        $start = date('Y-m-d', strtotime($between[0]));
+        $end = date('Y-m-d', strtotime($between[1]));
+        $image = $request->file('banner');
+        $filename = time() . '.' . $image->guessExtension();
+        $path = $image->storeAs('adserver/images/' . date('Ymd'), $filename);
+        $ad = new Ad(Arr::collapse([$request->only([
+            'title', 'link', 'country_id', 'ad_space_id'
+        ]), ['banner' => $path, 'start_at' => $start, 'end_at' => $end]]));
         $ad->save();
         return back()->with('success', __('admin::admin.added_success'));
     }
@@ -101,21 +117,46 @@ class AdController extends AdminController
     public function edit(Request $request, $id)
     {
         abort_if(!$request->user()->canDo('ads.edit'), 403);
+        $countries = Country::all();
+        $ad_spaces = AdSpace::all();
         $ad = Ad::query()->findOrFail($id);
-        return view('adserver::admin.ad.edit', ['ad' => $ad]);
+        return view('adserver::admin.ad.edit', ['countries' => $countries, 'ad_spaces' => $ad_spaces, 'ad' => $ad]);
     }
 
     public function update(Request $request, $id)
     {
         abort_if(!$request->user()->canDo('ads.edit'), 403);
-        $request->validate([
-
-        ]);
-
+        if ($request->hasFile('banner')) {
+            $request->validate([
+                'title' => ['required', 'string'],
+                'link' => ['required', 'url'],
+                'country_id' => ['required', 'exists:countries,id'],
+                'ad_space_id' => ['required', 'exists:ad_spaces,id'],
+                'banner' => ['required', 'image', 'max:1000'],
+                'activity_date' => ['required', 'string']
+            ]);
+        } else {
+            $request->validate([
+                'title' => ['required', 'string'],
+                'link' => ['required', 'url'],
+                'country_id' => ['required', 'exists:countries,id'],
+                'ad_space_id' => ['required', 'exists:ad_spaces,id'],
+                'activity_date' => ['required', 'string']
+            ]);
+        }
+        $between = explode(' - ', $request->input('activity_date'));
+        $start = date('Y-m-d', strtotime($between[0]));
+        $end = date('Y-m-d', strtotime($between[1]));
         $ad = Ad::query()->findOrFail($id);
-        $ad->fill($request->only([
-
-        ]));
+        $ad->fill(Arr::collapse([$request->only([
+            'title', 'link', 'country_id', 'ad_space_id'
+        ]), ['start_at' => $start, 'end_at' => $end]]));
+        if ($request->hasFile('banner')) {
+            $image = $request->file('banner');
+            $filename = time() . '.' . $image->guessExtension();
+            $path = $image->storeAs('adserver/images/' . date('Ymd'), $filename);
+            $ad->banner = $path;
+        }
         $ad->save();
         return back()->with('success', __('admin::admin.update_success'));
     }

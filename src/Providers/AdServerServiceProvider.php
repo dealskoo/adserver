@@ -16,6 +16,7 @@ class AdServerServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->mergeConfigFrom(__DIR__ . '/../../config/adserver.php', 'adserver');
     }
 
     /**
@@ -27,6 +28,10 @@ class AdServerServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->loadMigrationsFrom(__DIR__ . '/../../database/migrations');
+
+            $this->publishes([
+                __DIR__ . '/../../config/adserver.php' => config_path('adserver.php')
+            ], 'config');
 
             $this->publishes([
                 __DIR__ . '/../../resources/lang' => resource_path('lang/vendor/adserver')
