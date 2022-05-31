@@ -42,7 +42,8 @@
         "php": ">=7.1",
         "dealskoo/admin": "dev-master",
         "dealskoo/country": "dev-master",
-        "laravel/framework": ">=7.20"
+        "laravel/framework": ">=7.20",
+        "laravel/scout": "^9.4"
     },
     "require-dev": {
         "orchestra/testbench": "^6.23",

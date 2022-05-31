@@ -9,10 +9,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Storage;
+use Laravel\Scout\Searchable;
 
 class Ad extends Model
 {
-    use HasFactory, SoftDeletes, HasCountry;
+    use HasFactory, SoftDeletes, HasCountry, Searchable;
 
     protected $appends = [
         'banner_url'
