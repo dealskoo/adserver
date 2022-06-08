@@ -2,7 +2,6 @@
 
 namespace Dealskoo\Adserver\Http\Controllers\Admin;
 
-use Carbon\Carbon;
 use Dealskoo\Admin\Http\Controllers\Controller as AdminController;
 use Dealskoo\Adserver\Models\AdSpace;
 use Illuminate\Http\Request;
@@ -42,8 +41,8 @@ class AdSpaceController extends AdminController
             $row = [];
             $row[] = $ad_space->id;
             $row[] = $ad_space->code;
-            $row[] = Carbon::parse($ad_space->created_at)->format('Y-m-d H:i:s');
-            $row[] = Carbon::parse($ad_space->updated_at)->format('Y-m-d H:i:s');
+            $row[] = $ad_space->created_at->format('Y-m-d H:i:s');
+            $row[] = $ad_space->updated_at->format('Y-m-d H:i:s');
             $view_link = '';
             if ($can_view) {
                 $view_link = '<a href="' . route('admin.ad_spaces.show', $ad_space) . '" class="action-icon"><i class="mdi mdi-eye"></i></a>';

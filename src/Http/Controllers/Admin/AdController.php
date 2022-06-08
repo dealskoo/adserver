@@ -2,7 +2,6 @@
 
 namespace Dealskoo\Adserver\Http\Controllers\Admin;
 
-use Carbon\Carbon;
 use Dealskoo\Admin\Http\Controllers\Controller as AdminController;
 use Dealskoo\Adserver\Models\Ad;
 use Dealskoo\Adserver\Models\AdSpace;
@@ -47,10 +46,10 @@ class AdController extends AdminController
             $row[] = $ad->title;
             $row[] = $ad->ad_space->code;
             $row[] = $ad->country->name;
-            $row[] = Carbon::parse($ad->start_at)->format('Y-m-d H:i:s');
-            $row[] = Carbon::parse($ad->end_at)->format('Y-m-d H:i:s');
-            $row[] = Carbon::parse($ad->created_at)->format('Y-m-d H:i:s');
-            $row[] = Carbon::parse($ad->updated_at)->format('Y-m-d H:i:s');
+            $row[] = $ad->start_at->format('Y-m-d H:i:s');
+            $row[] = $ad->end_at->format('Y-m-d H:i:s');
+            $row[] = $ad->created_at->format('Y-m-d H:i:s');
+            $row[] = $ad->updated_at->format('Y-m-d H:i:s');
             $view_link = '';
             if ($can_view) {
                 $view_link = '<a href="' . route('admin.ads.show', $ad) . '" class="action-icon"><i class="mdi mdi-eye"></i></a>';

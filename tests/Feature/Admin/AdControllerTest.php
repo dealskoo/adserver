@@ -2,7 +2,6 @@
 
 namespace Dealskoo\Adserver\Tests\Feature\Admin;
 
-use Carbon\Carbon;
 use Dealskoo\Admin\Models\Admin;
 use Dealskoo\Adserver\Models\Ad;
 use Dealskoo\Adserver\Tests\TestCase;
@@ -55,7 +54,7 @@ class AdControllerTest extends TestCase
             'ad_space_id',
         ]), [
             'banner' => UploadedFile::fake()->image('file.jpg'),
-            'activity_date' => Carbon::parse($ad->start_at)->format('m/d/Y') . ' - ' . Carbon::parse($ad->end_at)->format('m/d/Y')
+            'activity_date' => $ad->start_at->format('m/d/Y') . ' - ' . $ad->end_at->format('m/d/Y')
         ]]));
         $response->assertStatus(302);
     }
@@ -80,7 +79,7 @@ class AdControllerTest extends TestCase
             'ad_space_id',
         ]), [
             'banner' => UploadedFile::fake()->image('file.jpg'),
-            'activity_date' => Carbon::parse($ad1->start_at)->format('m/d/Y') . ' - ' . Carbon::parse($ad1->end_at)->format('m/d/Y')
+            'activity_date' => $ad1->start_at->format('m/d/Y') . ' - ' . $ad1->end_at->format('m/d/Y')
         ]]));
         $response->assertStatus(302);
     }
