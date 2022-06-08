@@ -2,7 +2,6 @@
 
 namespace Dealskoo\Adserver\Models;
 
-use Carbon\Carbon;
 use Dealskoo\Country\Traits\HasCountry;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -48,7 +47,7 @@ class Ad extends Model
 
     public function scopeAvaiabled(Builder $builder)
     {
-        $now = Carbon::now();
+        $now = now();
         return $builder->where('start_at', '<=', $now)->where('end_at', '>=', $now);
     }
 }
